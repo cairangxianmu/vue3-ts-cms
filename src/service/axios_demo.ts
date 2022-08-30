@@ -4,7 +4,7 @@ axios.defaults.baseURL = "http://httpbin.org";
 axios.defaults.timeout = 10000;
 
 axios.get("http://123.207.32.32:8000/home/multidata").then((res) => {
-    console.log(res.data);
+    console.log("123get请求", res.data);
 });
 
 axios
@@ -13,7 +13,7 @@ axios
         axios.post("/post", { data: { name: "why", age: 34 } }),
     ])
     .then((res) => {
-        console.log(res);
+        console.log("httpbin请求axiosall", res);
     });
 
 axios.interceptors.request.use(

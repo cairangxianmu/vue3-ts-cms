@@ -1,7 +1,7 @@
 import {
     accountLoginRequest,
     requestUserInfoById,
-    requestUserMenusById,
+    requestUserMenusByRoleId,
 } from "@/service/login/login";
 import { Module } from "vuex";
 import { IAccount } from "@/service/login/types";
@@ -35,19 +35,22 @@ const loginModule: Module<ILoginState, IRootState> = {
     actions: {
         async accountLoginAction({ commit }, payload: IAccount) {
             const loginResult = await accountLoginRequest(payload);
+            console.log("返回结果", loginResult);
             const { id, token } = loginResult.data;
             commit("changeToken", token);
             localCache.setCache("token", token);
-            console.log(loginResult);
 
             // 2.请求用户信息
             const userInfoResult = await requestUserInfoById(id);
+            console.log("用户信息", userInfoResult);
             const userInfo = userInfoResult.data;
             commit("changeUserInfo", userInfo);
             localCache.setCache("userInfo", userInfo);
 
             // 3. 请求用户菜单
-            const userMenuResult = await requestUserMenusById(userInfo.role.id);
+            const userMenuResult = await requestUserMenusByRoleId(
+                userInfo.role.id
+            );
             const userMenus = userMenuResult.data;
             console.log(userMenus);
 

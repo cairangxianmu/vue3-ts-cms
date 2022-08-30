@@ -1,12 +1,11 @@
-import { AxiosRequestConfig } from "axios";
 import hyRequest from "../index";
 
 import { IAccount, IDataType, ILoginResult } from "./types";
 
 enum LoginAPI {
     AccountLogin = "/login",
-    LoginUserInfo = "/users/",
-    UserMenus = "role/",
+    LoginUserInfo = "/users/", // 用法: /users/1
+    UserMenus = "/role/", // 用法: role/1/menu
 }
 
 export function accountLoginRequest(account: IAccount) {
@@ -23,9 +22,9 @@ export function requestUserInfoById(id: number) {
     });
 }
 
-export function requestUserMenusById(id: number) {
+export function requestUserMenusByRoleId(id: number) {
     return hyRequest.get<IDataType>({
-        url: LoginAPI.LoginUserInfo + id + "/menu",
+        url: LoginAPI.UserMenus + id + "/menu",
         showLoading: false,
     });
 }

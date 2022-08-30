@@ -9,8 +9,8 @@
             <el-form-item label="账号" prop="name">
                 <el-input v-model="ruleForm.name" />
             </el-form-item>
-            <el-form-item label="密码" prop="pass">
-                <el-input v-model="ruleForm.pass" show-password />
+            <el-form-item label="密码" prop="password">
+                <el-input v-model="ruleForm.password" show-password />
             </el-form-item>
         </el-form>
     </div>
@@ -27,7 +27,7 @@ export default defineComponent({
         const store = useStore();
         const ruleForm = reactive({
             name: localCache.getCache("name") ?? "",
-            pass: localCache.getCache("pass") ?? "",
+            password: localCache.getCache("password") ?? "",
         });
         const formRef = ref<InstanceType<typeof ElForm>>();
         const loginAction = (isKeepPassword: boolean) => {
@@ -35,10 +35,10 @@ export default defineComponent({
                 if (valid) {
                     if (isKeepPassword) {
                         localCache.setCache("name", ruleForm.name);
-                        localCache.setCache("pass", ruleForm.pass);
+                        localCache.setCache("password", ruleForm.password);
                     } else {
                         localCache.deleteCache("name");
-                        localCache.deleteCache("pass");
+                        localCache.deleteCache("password");
                     }
                     store.dispatch("login/accountLoginAction", { ...ruleForm });
                 }

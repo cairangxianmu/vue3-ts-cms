@@ -10,10 +10,11 @@ const hyRequest = new HYRequest({
     interceptors: {
         requestInterceptor: (config) => {
             // 携带token的拦截
-            const token = localCache.getCache("token");
+            // const token = localCache.getCache("token");
             // if (token) {
             //     config.headers.Authorization = `Bearer ${token}`;
             // }
+            console.log(config.headers);
             return config;
         },
         requestInterceptorCatch: (err) => {
